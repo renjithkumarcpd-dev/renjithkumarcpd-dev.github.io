@@ -64,7 +64,7 @@
   .nav-links a{
     font-family: var(--mono); font-size: 12.5px; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.08em;
-    transition: color .15s ease;
+    transition: none;
   }
   .nav-links a:hover{ color: var(--probe); }
   .nav-toggle{ display:none; }
@@ -72,7 +72,7 @@
   /* ---------- hero (dark, photo background) ---------- */
   .hero{
     position: relative;
-    padding: 132px 0 92px;
+    padding: 112px 0 84px;
     overflow: hidden;
     background: #0a0d0c;
     color: #f4f2ec;
@@ -82,19 +82,26 @@
     position:absolute; inset:0;
     background-image: url('hero-bg.png');
     background-size: cover;
-    background-position: center 30%;
+    background-position: center center;
     opacity: 1;
     z-index:0;
   }
   .hero::after{
     content:"";
-    position:absolute; inset:0;
-    background:
-      linear-gradient(180deg, rgba(6,8,7,0.55) 0%, rgba(6,8,7,0.86) 72%, rgba(6,8,7,0.97) 100%),
-      linear-gradient(90deg, rgba(6,8,7,0.65) 0%, rgba(6,8,7,0.15) 45%, rgba(6,8,7,0.55) 100%);
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.10);
     z-index:0;
   }
   .hero .wrap{ position:relative; z-index:1; }
+  .hero .eyebrow,
+  .hero .name,
+  .hero .tagline,
+  .hero .hero-meta,
+  .hero .hero-actions,
+  .hero .hero-note{
+    text-shadow:0 1px 3px rgba(0,0,0,0.45);
+  }
 
   .hero-grid{
     display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items:center;
@@ -109,7 +116,7 @@
   h1.name{
     font-family: var(--serif);
     font-weight: 600;
-    font-size: clamp(22px, 6vw, 72px);
+    font-size: clamp(36px, 4.5vw, 52px);
     line-height: 1.03;
     letter-spacing: -0.01em;
     margin-bottom: 18px;
@@ -131,7 +138,7 @@
   .btn{
     font-family: var(--mono); font-size: 12.5px; letter-spacing:0.04em;
     padding: 11px 18px; border-radius: 8px;
-    border: 1px solid var(--line); transition: all .15s ease;
+    border: 1px solid var(--line); transition: none;
     display:inline-flex; align-items:center; gap:8px;
   }
   .btn-primary{ background: #16745a; color:#ffffff; border-color: #16745a; font-weight:500; }
@@ -321,8 +328,8 @@
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow"><span class="dot"></span> Laser–Matter Interaction &amp; Optical Diagnostics</div>
-      <h1 class="name">Renjith Kumar R.<br><em>Experimental Physicist</em></h1>
-      <p class="tagline">My research focuses on laser–matter interaction, thin-film laser ablation, transient plasma dynamics, pump–probe diagnostics, and laser-induced surface modification.</p>
+      <h1 class="name">Renjith Kumar R.</h1>
+      <p class="tagline">Experimental physicist working on laser–matter interaction, optical diagnostics, thin-film ablation, transient plasma dynamics, and laser-induced surface modification.</p>
       <div class="hero-meta">
         <div><strong>PhD Research Scholar</strong> — Laser Diagnostics Section, Institute for Plasma Research</div>
         <div>Homi Bhabha National Institute · Gandhinagar, Gujarat, India · 2022–present</div>
@@ -336,7 +343,6 @@
     </div>
   </div>
 </section>
-
 <section id="research">
   <div class="wrap">
     <div class="sec-head">
