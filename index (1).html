@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renjith Kumar R — Experimental Physicist</title>
+<meta name="description" content="Renjith Kumar R — experimental physicist working on laser-matter interaction, thin-film ablation, and pump-probe diagnostics at the Institute for Plasma Research.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #faf9f6;
+    --bg-raised: #f2f0ea;
+    --bg-card: #ffffff;
+    --line: #dcd8ce;
+    --text: #1a2530;
+    --text-dim: #4d5964;
+    --text-faint: #838a90;
+    --probe: #16745a;      /* 532 nm probe laser */
+    --probe-dim: #0f5945;
+    --pump: #b8502f;       /* 1064 nm pump laser, shown as warm ember */
+    --pump-dim: #8f3d24;
+    --radius: 3px;
+    --serif: 'Fraunces', serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background: var(--probe); color:#fff; }
+
+  .wrap{ max-width: 1080px; margin:0 auto; padding: 0 32px; }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(250,249,246,0.88);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0;
+  }
+  .nav-mark{
+    font-family: var(--mono); font-size: 13px; color: var(--probe);
+    letter-spacing: 0.02em;
+  }
+  .nav-mark span{ color: var(--text-faint); }
+  .nav-links{ display:flex; gap: 28px; list-style:none; }
+  .nav-links a{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 0.08em;
+    transition: color .15s ease;
+  }
+  .nav-links a:hover{ color: var(--probe); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 96px 0 64px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items:center;
+  }
+  .eyebrow{
+    font-family: var(--mono); font-size: 12.5px; color: var(--text-faint);
+    letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background: var(--probe); }
+
+  h1.name{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(40px, 5.4vw, 64px);
+    line-height: 1.03;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+  }
+  h1.name em{
+    font-style: italic; font-weight: 400; color: var(--probe);
+  }
+  .tagline{
+    font-size: 17px; color: var(--text-dim); max-width: 46ch; margin-bottom: 30px;
+  }
+  .hero-meta{
+    display:flex; flex-direction:column; gap:8px; margin-bottom: 34px;
+    font-family: var(--mono); font-size: 13px; color: var(--text-faint);
+  }
+  .hero-meta strong{ color: var(--text-dim); font-weight:500; }
+
+  .hero-actions{ display:flex; flex-wrap:wrap; gap: 12px; }
+  .btn{
+    font-family: var(--mono); font-size: 12.5px; letter-spacing:0.04em;
+    padding: 11px 18px; border-radius: var(--radius);
+    border: 1px solid var(--line); transition: all .15s ease;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{ background: var(--probe); color:#ffffff; border-color: var(--probe); font-weight:500; }
+  .btn-primary:hover{ background: var(--probe-dim); }
+  .btn-ghost{ color: var(--text-dim); }
+  .btn-ghost:hover{ border-color: var(--text-dim); color: var(--text); background: var(--bg-raised); }
+
+  /* ---------- pulse visual ---------- */
+  .pulse-card{
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 22px 16px;
+    box-shadow: 0 12px 32px -18px rgba(26,37,48,0.18);
+  }
+  .pulse-card-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    letter-spacing:0.06em; margin-bottom: 10px;
+  }
+  .pulse-card-head .k1{ color: var(--pump); }
+  .pulse-card-head .k2{ color: var(--probe); }
+  svg#pulseSvg{ width:100%; height:auto; display:block; }
+  .pulse-legend{
+    display:flex; gap:18px; margin-top: 10px; font-family: var(--mono); font-size:11px; color: var(--text-faint);
+  }
+  .pulse-legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .swatch{ width:10px; height:2px; display:inline-block; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .probe-trace{ animation: draw 2.6s ease-out 0.3s both; }
+    .pump-spike{ animation: fadeUp 0.6s ease-out both; }
+  }
+  @keyframes draw{
+    from{ stroke-dashoffset: 620; }
+    to{ stroke-dashoffset: 0; }
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform: translateY(4px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom:none; }
+
+  .sec-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom: 34px; gap: 20px; }
+  .sec-title{
+    font-family: var(--serif); font-weight:600; font-size: 28px; letter-spacing:-0.01em;
+  }
+  .sec-tag{ font-family: var(--mono); font-size: 12px; color: var(--text-faint); letter-spacing:0.06em; white-space:nowrap; }
+
+  p.lede{ color: var(--text-dim); max-width: 68ch; font-size: 15.5px; }
+
+  /* ---------- research themes ---------- */
+  .theme-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--line); border: 1px solid var(--line); margin-top: 30px;
+  }
+  .theme{
+    background: var(--bg); padding: 24px 22px;
+  }
+  .theme .idx{ font-family: var(--mono); font-size: 11px; color: var(--pump); margin-bottom:10px; }
+  .theme h3{ font-family: var(--serif); font-weight:600; font-size:17px; margin-bottom:8px; }
+  .theme p{ font-size: 13.5px; color: var(--text-faint); }
+
+  /* ---------- featured research ---------- */
+  .feature{
+    background: var(--bg-card); border:1px solid var(--line); border-radius: var(--radius);
+    padding: 32px; margin-top: 30px;
+    display:grid; grid-template-columns: 1fr 1px 240px; gap: 32px;
+    box-shadow: 0 12px 32px -20px rgba(26,37,48,0.15);
+  }
+  .feature-div{ background: var(--line); }
+  .feature h3{ font-family: var(--serif); font-size: 21px; font-weight:600; margin-bottom: 12px; }
+  .feature p{ color: var(--text-dim); font-size: 14.5px; margin-bottom: 16px; }
+  .param-table{ font-family: var(--mono); font-size: 12.5px; width:100%; }
+  .param-table tr{ border-top: 1px solid var(--line); }
+  .param-table tr:first-child{ border-top:none; }
+  .param-table td{ padding: 8px 0; }
+  .param-table td:first-child{ color: var(--text-faint); }
+  .param-table td:last-child{ text-align:right; color: var(--text); }
+  .feature-links{ display:flex; flex-direction:column; gap:10px; justify-content:center; }
+  .feature-links a{
+    font-family: var(--mono); font-size: 12.5px; color: var(--probe);
+    display:flex; align-items:center; gap:6px;
+  }
+  .feature-links a:hover{ color:#5cf0a2; }
+
+  /* ---------- publications ---------- */
+  .pub-list{ display:flex; flex-direction:column; margin-top: 24px; }
+  .pub{
+    display:grid; grid-template-columns: 64px 1fr; gap: 20px;
+    padding: 22px 0; border-top: 1px solid var(--line);
+  }
+  .pub:last-child{ border-bottom: 1px solid var(--line); }
+  .pub .year{ font-family: var(--mono); font-size: 13px; color: var(--text-faint); padding-top:3px; }
+  .pub .year.pending{ color: var(--pump-dim); }
+  .pub h4{ font-family: var(--sans); font-weight:600; font-size: 15.5px; margin-bottom:6px; line-height:1.4; }
+  .pub .venue{ font-size: 13px; color: var(--text-dim); margin-bottom: 8px; }
+  .pub .venue em{ font-style: normal; color: var(--text-faint); }
+  .pub .links{ display:flex; gap:16px; }
+  .pub .links a{ font-family: var(--mono); font-size:12px; color: var(--probe); }
+  .pub .links a:hover{ color:#5cf0a2; }
+  .pub .status{ font-family: var(--mono); font-size:12px; color: var(--pump-dim); }
+
+  /* ---------- two col lists (talks / awards / teaching) ---------- */
+  .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 30px; }
+  .stack-item{ padding: 16px 0; border-top: 1px solid var(--line); }
+  .stack-item:last-child{ padding-bottom:0; }
+  .stack-item .meta{ font-family: var(--mono); font-size: 11.5px; color: var(--text-faint); margin-bottom: 5px; letter-spacing:0.03em; }
+  .stack-item .title{ font-size: 14.5px; color: var(--text); font-weight:500; line-height:1.5; }
+
+  h4.col-label{
+    font-family: var(--mono); font-size:12px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing:0.08em; margin-bottom: 4px;
+  }
+
+  /* ---------- writing ---------- */
+  .writing-card{
+    margin-top: 30px; border:1px solid var(--line); border-radius: var(--radius);
+    padding: 30px 32px; background: linear-gradient(135deg, rgba(184,80,47,0.06), transparent 60%);
+    display:flex; justify-content:space-between; align-items:center; gap: 24px; flex-wrap:wrap;
+  }
+  .writing-card h3{ font-family: var(--serif); font-size:19px; font-weight:600; margin-bottom:6px; }
+  .writing-card p{ font-size: 13.5px; color: var(--text-faint); max-width: 48ch; }
+
+  /* ---------- skills strip ---------- */
+  .skills-strip{
+    margin-top: 30px; display:flex; flex-wrap:wrap; gap: 10px;
+  }
+  .skill-pill{
+    font-family: var(--mono); font-size: 12px; color: var(--text-dim);
+    border:1px solid var(--line); border-radius: 20px; padding: 6px 14px;
+  }
+
+  /* ---------- contact / footer ---------- */
+  footer{ padding: 64px 0 40px; }
+  .contact-grid{ display:grid; grid-template-columns: 1.2fr 1fr; gap: 40px; }
+  footer h2{ font-family: var(--serif); font-size: 30px; font-weight:600; margin-bottom: 14px; }
+  footer p.lede{ margin-bottom: 26px; }
+  .contact-list{ display:flex; flex-direction:column; gap:0; }
+  .contact-row{
+    display:flex; justify-content:space-between; padding: 14px 0; border-top:1px solid var(--line);
+    font-family: var(--mono); font-size: 13px;
+  }
+  .contact-row:last-child{ border-bottom: 1px solid var(--line); }
+  .contact-row .k{ color: var(--text-faint); }
+  .contact-row a{ color: var(--probe); }
+  .contact-row a:hover{ color:#5cf0a2; }
+  .foot-note{ margin-top: 40px; font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
+
+  @media (max-width: 860px){
+    .hero-grid{ grid-template-columns: 1fr; }
+    .theme-grid{ grid-template-columns: 1fr; }
+    .feature{ grid-template-columns: 1fr; }
+    .feature-div{ display:none; }
+    .two-col{ grid-template-columns: 1fr; gap: 8px; }
+    .contact-grid{ grid-template-columns: 1fr; }
+    .nav-links{ display:none; }
+    .wrap{ padding: 0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="nav-mark">RK<span>_R / IPR·HBNI</span></div>
+    <ul class="nav-links">
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#software">Software</a></li>
+      <li><a href="#talks">Talks &amp; Awards</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> Laser–Matter Interaction &amp; Optical Diagnostics</div>
+      <h1 class="name">Renjith Kumar R.<br><em>Experimental Physicist</em></h1>
+      <p class="tagline">I build the instruments that watch a laser pulse melt, ablate, and reshape a surface in real time — then use what they see to understand thin-film ablation, plasma dynamics, and redeposition.</p>
+      <div class="hero-meta">
+        <div><strong>PhD Research Scholar</strong> — Laser Diagnostics Section, Institute for Plasma Research</div>
+        <div>Homi Bhabha National Institute · Gandhinagar, Gujarat, India · 2022–present</div>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="mailto:renjith.kumar@ipr.res.in">Email me →</a>
+        <a class="btn btn-ghost" href="cv.pdf">Download CV</a>
+        <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=zZOtZ8AAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
+      </div>
+    </div>
+
+    <div class="pulse-card">
+      <div class="pulse-card-head">
+        <span><span class="k1">● pump</span> 1064 nm, ~10 ns</span>
+        <span><span class="k2">● probe</span> 532 nm, CW</span>
+      </div>
+      <svg id="pulseSvg" viewBox="0 0 480 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- axes -->
+        <line x1="20" y1="200" x2="460" y2="200" stroke="#dcd8ce" stroke-width="1"/>
+        <line x1="20" y1="20" x2="20" y2="200" stroke="#dcd8ce" stroke-width="1"/>
+        <!-- pump pulse spike -->
+        <path class="pump-spike" d="M 60 200 L 66 200 L 70 34 L 74 200 L 460 200" stroke="#b8502f" stroke-width="2"/>
+        <circle class="pump-spike" cx="70" cy="34" r="3" fill="#b8502f"/>
+        <!-- probe transmission curve: T(t) = b(1 - e^-t/tau), rising then relaxing -->
+        <path class="probe-trace" d="M 70 176 C 100 176, 108 66, 150 62 C 220 56, 260 96, 320 118 C 370 134, 410 140, 452 142"
+              stroke="#16745a" stroke-width="2.25" stroke-dasharray="620" stroke-dashoffset="620"/>
+        <!-- labels -->
+        <text x="20" y="15" font-family="IBM Plex Mono" font-size="10" fill="#838a90">T(t), R(t)</text>
+        <text x="440" y="215" font-family="IBM Plex Mono" font-size="10" fill="#838a90" text-anchor="end">time (µs)</text>
+        <text x="76" y="30" font-family="IBM Plex Mono" font-size="9" fill="#b8502f">pump pulse</text>
+        <text x="330" y="108" font-family="IBM Plex Mono" font-size="9" fill="#16745a">probe: melt → plasma → redeposition</text>
+      </svg>
+      <div class="pulse-legend">
+        <span><span class="swatch" style="background:#ff6a45"></span>single ablating pulse</span>
+        <span><span class="swatch" style="background:#3ee08a"></span>CW probe reads full dynamics in one shot</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Research</div>
+      <div class="sec-tag">6 areas · 1 platform</div>
+    </div>
+    <p class="lede">My work centers on what happens in the microseconds after a nanosecond laser pulse strikes a thin metallic film — melting, evaporation, plasma formation, and the redeposition that follows — studied through an automated pump–probe system I designed and built.</p>
+
+    <div class="theme-grid">
+      <div class="theme">
+        <div class="idx">λ / fluence</div>
+        <h3>Thin-Film Laser Ablation</h3>
+        <p>Front- and rear-side ablation of aluminium and silver films on glass/quartz, across 5–15 J/cm² fluence and 0.01–1000 mbar ambient pressure.</p>
+      </div>
+      <div class="theme">
+        <div class="idx">Δt → 0</div>
+        <h3>Pump–Probe Diagnostics</h3>
+        <p>A CW-probe reflectometry/transmissometry platform that captures the full temporal evolution of ablation dynamics in a single measurement.</p>
+      </div>
+      <div class="theme">
+        <div class="idx">n<sub>e</sub>, T<sub>e</sub></div>
+        <h3>Laser-Produced Plasma</h3>
+        <p>Spectroscopic characterization of laser-produced aluminium plasma — Stark widths, spatio-temporal emission, and polarization effects.</p>
+      </div>
+      <div class="theme">
+        <div class="idx">R(t)</div>
+        <h3>Redeposition &amp; Melt Dynamics</h3>
+        <p>A drag-based model for plume redeposition, confirmed with SEM and Raman spectroscopy of ablated craters.</p>
+      </div>
+      <div class="theme">
+        <div class="idx">in situ</div>
+        <h3>Laser Cleaning</h3>
+        <p>Applications to in-situ cleaning of optical viewports on large facilities such as tokamaks, and other coated-surface systems.</p>
+      </div>
+      <div class="theme">
+        <div class="idx">DAQ</div>
+        <h3>Instrument Automation</h3>
+        <p>Arduino–Python control systems for single-pulse synchronization, motorized sample positioning, and automated fresh-spot selection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="software">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Featured Platform</div>
+      <div class="sec-tag">Built from the ground up</div>
+    </div>
+
+    <div class="feature">
+      <div>
+        <h3>Automated Pump–Probe Diagnostic System</h3>
+        <p>A modular optical system for studying front- and rear-side ablation of thin films using a transparent substrate. A CW probe laser continuously monitors transmission and reflection through a single ablation event, avoiding the need for repeated delay-scanned shots that conventional pump–probe methods require.</p>
+        <p>The full control, acquisition, and analysis stack — synchronization, motorized X–Z positioning, and single-pulse triggering — is released as open software.</p>
+      </div>
+      <div class="feature-div"></div>
+      <div>
+        <table class="param-table">
+          <tr><td>Pump laser</td><td>Nd:YAG, 1064 nm, ~10 ns</td></tr>
+          <tr><td>Probe laser</td><td>CW DPSS, 532 nm</td></tr>
+          <tr><td>Fluence range</td><td>5–15 J/cm²</td></tr>
+          <tr><td>Pressure range</td><td>0.01–1000 mbar</td></tr>
+          <tr><td>Detector</td><td>Avalanche photodiode</td></tr>
+        </table>
+        <div class="feature-links" style="margin-top:20px;">
+          <a href="https://github.com/renjithkumarcpd-dev/Pump-probe-laser-ablation-of-thin-film" target="_blank" rel="noopener">↳ Source on GitHub</a>
+          <a href="https://doi.org/10.5281/zenodo.21108254" target="_blank" rel="noopener">↳ Zenodo, DOI 10.5281/zenodo.21108254</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-strip">
+      <span class="skill-pill">Python</span>
+      <span class="skill-pill">C++</span>
+      <span class="skill-pill">MATLAB</span>
+      <span class="skill-pill">COMSOL Multiphysics</span>
+      <span class="skill-pill">LAMMPS</span>
+      <span class="skill-pill">Zemax OpticStudio</span>
+      <span class="skill-pill">Arduino</span>
+      <span class="skill-pill">CAD — NX9 / Solid Edge / SolidWorks</span>
+      <span class="skill-pill">ICCD &amp; streak cameras</span>
+      <span class="skill-pill">Micro-Raman</span>
+      <span class="skill-pill">Michelson &amp; Talbot interferometry</span>
+    </div>
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Publications</div>
+      <div class="sec-tag">6 papers · 1 dataset/software release</div>
+    </div>
+
+    <div class="pub-list">
+      <div class="pub">
+        <div class="year">2026</div>
+        <div>
+          <h4>A comprehensive study on the line profiles and Stark widths of ionic transitions from laser-produced aluminum plasma</h4>
+          <div class="venue">B. R. Geethika, <strong>R. Kumar R.</strong>, et al. — <em>Journal of Applied Physics</em> 139 (19), 193303</div>
+          <div class="links"><a href="https://doi.org/10.1063/5.0324581" target="_blank" rel="noopener">DOI ↗</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div class="year">2025</div>
+        <div>
+          <h4>Effect of ambient on the dynamics of re-deposition in the rear laser ablation of a thin film</h4>
+          <div class="venue"><strong>R. Kumar R.</strong>, B. R. Geethika, N. Verma, V. Chaudhari, J. Dave, H. C. Joshi, J. Thomas — <em>Optics &amp; Laser Technology</em> 181, 111954</div>
+          <div class="links"><a href="https://doi.org/10.1016/j.optlastec.2024.111954" target="_blank" rel="noopener">DOI ↗</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div class="year">2024</div>
+        <div>
+          <h4>Effect of polarization on spectroscopic characterization of laser produced aluminium plasma</h4>
+          <div class="venue">B. R. Geethika, <strong>R. Kumar R.</strong>, et al. — <em>Spectrochimica Acta Part B</em> 221, 107033</div>
+          <div class="links"><a href="https://doi.org/10.1016/j.sab.2024.107033" target="_blank" rel="noopener">DOI ↗</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div class="year">2023</div>
+        <div>
+          <h4>Spatio-temporal dynamics of anisotropic emission from nano-second laser produced aluminium plasma</h4>
+          <div class="venue">B. R. Geethika, <strong>R. Kumar R.</strong>, et al. — <em>Journal of Analytical Atomic Spectrometry</em> 38 (11), 2477–2485</div>
+          <div class="links"><a href="https://doi.org/10.1039/D3JA00228D" target="_blank" rel="noopener">DOI ↗</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div class="year pending">—</div>
+        <div>
+          <h4>Transient Dynamics of Front and Rear Ablation in Aluminium Thin Films</h4>
+          <div class="venue"><strong>R. Kumar R.</strong>, B. R. Geethika, H. C. Joshi, J. Thomas — <em>SSRN preprint; under communication with Journal of Applied Physics A</em></div>
+          <div class="links"><a href="https://doi.org/10.2139/ssrn.6998057" target="_blank" rel="noopener">Preprint ↗</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <div class="year pending">—</div>
+        <div>
+          <h4>Development of a versatile modular system to study the ablation and plume expansion of a thin film</h4>
+          <div class="venue"><strong>R. Kumar R.</strong>, et al. — <span class="status">Submitted to Review of Scientific Instruments</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="talks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Talks &amp; Recognition</div>
+      <div class="sec-tag">Conferences · Awards · Teaching</div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <h4 class="col-label">Selected Presentations</h4>
+        <div class="stack-item">
+          <div class="meta">PSC Colloquium · Guwahati · Jul 2026</div>
+          <div class="title">Study of Laser Ablation Dynamics of Thin-Film Using an Innovative Pump–Probe Diagnostic Setup</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">49th ITPEA Diagnostics TG Meeting · Gandhinagar · Apr 2026</div>
+          <div class="title">Studying the dynamics of laser cleaning of optical components</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">51st EPS Conference on Plasma Physics · Vilnius · Jul 2025</div>
+          <div class="title">Study of Re-deposition Dynamics of Thin Film in Rear Ablation Geometry</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">iCOLD25 · IIT Hyderabad · Mar 2025</div>
+          <div class="title">A pump-probe study of laser ablation of a thin film in rear ablation geometry</div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="col-label">Awards &amp; Mentoring</h4>
+        <div class="stack-item">
+          <div class="meta">Best Oral Presentation · PSC Colloquium 2026</div>
+          <div class="title">Innovative Pump–Probe Diagnostic Setup for thin-film ablation dynamics</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">Best Poster Award · ICLMUP, MG University · 2024</div>
+          <div class="title">Studying the melt dynamics of a thin-film using a probe laser</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">Qualified · JEST national entrance test · 2021</div>
+          <div class="title">Joint Entrance Screening Test</div>
+        </div>
+        <div class="stack-item">
+          <div class="meta">Mentoring · ongoing &amp; 2024</div>
+          <div class="title">Guiding a project student on laser surface structuring; supervised a summer-school SBS pulse-compression project (Best Project Award)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="writing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Beyond the Lab</div>
+      <div class="sec-tag">Science writing</div>
+    </div>
+    <div class="writing-card">
+      <div>
+        <h3>Beyond the Equations</h3>
+        <p>My ongoing science-writing archive — physics explained for a general audience, outside the register of a journal article.</p>
+      </div>
+      <a class="btn btn-ghost" href="https://beyondtheequations.blogspot.com/" target="_blank" rel="noopener">Read the archive →</a>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <h2>Get in touch</h2>
+        <p class="lede">Open to conversations on laser-matter interaction, optical diagnostics, and instrument automation — in research or applied settings.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:renjith.kumar@ipr.res.in">renjith.kumar@ipr.res.in</a>
+        </div>
+      </div>
+      <div class="contact-list">
+        <div class="contact-row"><span class="k">Institute</span><span>Institute for Plasma Research, Gandhinagar</span></div>
+        <div class="contact-row"><span class="k">Google Scholar</span><a href="https://scholar.google.com/citations?user=zZOtZ8AAAAAJ&hl=en" target="_blank" rel="noopener">View profile ↗</a></div>
+        <div class="contact-row"><span class="k">ResearchGate</span><a href="https://www.researchgate.net/profile/Renjith-Kumar-R" target="_blank" rel="noopener">View profile ↗</a></div>
+        <div class="contact-row"><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/renjith-kumar-67b083212" target="_blank" rel="noopener">Connect ↗</a></div>
+        <div class="contact-row"><span class="k">GitHub</span><a href="https://github.com/renjithkumarcpd-dev" target="_blank" rel="noopener">renjithkumarcpd-dev ↗</a></div>
+      </div>
+    </div>
+    <div class="foot-note">© 2026 Renjith Kumar R. · Built with data, not decoration.</div>
+  </div>
+</footer>
+
+</body>
+</html>
