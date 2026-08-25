@@ -60,7 +60,7 @@
     letter-spacing: 0.02em;
   }
   .nav-mark span{ color: var(--text-faint); }
-  .nav-links{ display:flex; gap: 28px; list-style:none; }
+  .nav-links{ display:flex; gap: 24px; list-style:none; }
   .nav-links a{
     font-family: var(--mono); font-size: 12.5px; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 0.08em;
@@ -69,97 +69,96 @@
   .nav-links a:hover{ color: var(--probe); }
   .nav-toggle{ display:none; }
 
-  /* ---------- hero ---------- */
+  /* ---------- hero (dark, photo background) ---------- */
   .hero{
-    padding: 96px 0 64px;
-    border-bottom: 1px solid var(--line);
     position: relative;
+    padding: 132px 0 92px;
     overflow: hidden;
+    background: #0a0d0c;
+    color: #f4f2ec;
   }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: url('hero-bg.png');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.38;
+    z-index:0;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(180deg, rgba(6,8,7,0.55) 0%, rgba(6,8,7,0.86) 72%, rgba(6,8,7,0.97) 100%),
+      linear-gradient(90deg, rgba(6,8,7,0.65) 0%, rgba(6,8,7,0.15) 45%, rgba(6,8,7,0.55) 100%);
+    z-index:0;
+  }
+  .hero .wrap{ position:relative; z-index:1; }
+
   .hero-grid{
     display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items:center;
   }
   .eyebrow{
-    font-family: var(--mono); font-size: 12.5px; color: var(--text-faint);
+    font-family: var(--mono); font-size: 12.5px; color: #b9c2bb;
     letter-spacing: 0.09em; text-transform: uppercase; margin-bottom: 18px;
     display:flex; align-items:center; gap:10px;
   }
-  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background: var(--probe); }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background: #4be89a; }
 
   h1.name{
     font-family: var(--serif);
     font-weight: 600;
-    font-size: clamp(40px, 5.4vw, 64px);
+    font-size: clamp(44px, 6vw, 72px);
     line-height: 1.03;
     letter-spacing: -0.01em;
     margin-bottom: 18px;
+    color: #f8f6f0;
   }
   h1.name em{
-    font-style: italic; font-weight: 400; color: var(--probe);
+    font-style: italic; font-weight: 400; color: #4be89a;
   }
   .tagline{
-    font-size: 17px; color: var(--text-dim); max-width: 46ch; margin-bottom: 30px;
+    font-size: 17px; color: #d3d8d1; max-width: 46ch; margin-bottom: 30px;
   }
   .hero-meta{
     display:flex; flex-direction:column; gap:8px; margin-bottom: 34px;
-    font-family: var(--mono); font-size: 13px; color: var(--text-faint);
+    font-family: var(--mono); font-size: 13px; color: #a8b0a9;
   }
-  .hero-meta strong{ color: var(--text-dim); font-weight:500; }
+  .hero-meta strong{ color: #eeece5; font-weight:500; }
 
   .hero-actions{ display:flex; flex-wrap:wrap; gap: 12px; }
   .btn{
     font-family: var(--mono); font-size: 12.5px; letter-spacing:0.04em;
-    padding: 11px 18px; border-radius: var(--radius);
+    padding: 11px 18px; border-radius: 8px;
     border: 1px solid var(--line); transition: all .15s ease;
     display:inline-flex; align-items:center; gap:8px;
   }
-  .btn-primary{ background: var(--probe); color:#ffffff; border-color: var(--probe); font-weight:500; }
-  .btn-primary:hover{ background: var(--probe-dim); }
-  .btn-ghost{ color: var(--text-dim); }
-  .btn-ghost:hover{ border-color: var(--text-dim); color: var(--text); background: var(--bg-raised); }
+  .btn-primary{ background: #16745a; color:#ffffff; border-color: #16745a; font-weight:500; }
+  .btn-primary:hover{ background: #12664f; }
+  .btn-ghost{ color: #d3d8d1; border-color: rgba(255,255,255,0.22); }
+  .btn-ghost:hover{ border-color: rgba(255,255,255,0.5); color: #fff; background: rgba(255,255,255,0.06); }
+  .hero-note{
+    display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:22px;
+    font-family:var(--mono); font-size:11.5px; color:#aeb7b0;
+    letter-spacing:.03em;
+  }
+  .hero-note span{ position:relative; }
+  .hero-note span:not(:last-child)::after{
+    content:""; position:absolute; right:-12px; top:50%; width:3px; height:3px;
+    border-radius:50%; background:#4be89a; transform:translateY(-50%);
+  }
+  footer .btn-ghost{ color: var(--text-dim); border-color: var(--line); }
+  footer .btn-ghost:hover{ border-color: var(--text-dim); color: var(--text); background: var(--bg-raised); }
 
-  /* ---------- pulse visual ---------- */
-  .pulse-card{
-    background: var(--bg-card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 22px 22px 16px;
-    box-shadow: 0 12px 32px -18px rgba(26,37,48,0.18);
-  }
-  .pulse-card-head{
-    display:flex; justify-content:space-between; align-items:baseline;
-    font-family: var(--mono); font-size: 11px; color: var(--text-faint);
-    letter-spacing:0.06em; margin-bottom: 10px;
-  }
-  .pulse-card-head .k1{ color: var(--pump); }
-  .pulse-card-head .k2{ color: var(--probe); }
-  svg#pulseSvg{ width:100%; height:auto; display:block; }
-  .pulse-legend{
-    display:flex; gap:18px; margin-top: 10px; font-family: var(--mono); font-size:11px; color: var(--text-faint);
-  }
-  .pulse-legend span{ display:inline-flex; align-items:center; gap:6px; }
-  .swatch{ width:10px; height:2px; display:inline-block; }
-
-  @media (prefers-reduced-motion: no-preference){
-    .probe-trace{ animation: draw 2.6s ease-out 0.3s both; }
-    .pump-spike{ animation: fadeUp 0.6s ease-out both; }
-  }
-  @keyframes draw{
-    from{ stroke-dashoffset: 620; }
-    to{ stroke-dashoffset: 0; }
-  }
-  @keyframes fadeUp{
-    from{ opacity:0; transform: translateY(4px); }
-    to{ opacity:1; transform: translateY(0); }
-  }
 
   /* ---------- section shell ---------- */
-  section{ padding: 72px 0; border-bottom: 1px solid var(--line); }
+  section{ padding: 88px 0; border-bottom: 1px solid var(--line); }
   section:last-of-type{ border-bottom:none; }
 
   .sec-head{ display:flex; align-items:baseline; justify-content:space-between; margin-bottom: 34px; gap: 20px; }
   .sec-title{
-    font-family: var(--serif); font-weight:600; font-size: 28px; letter-spacing:-0.01em;
+    font-family: var(--serif); font-weight:600; font-size: 30px; letter-spacing:-0.01em;
   }
   .sec-tag{ font-family: var(--mono); font-size: 12px; color: var(--text-faint); letter-spacing:0.06em; white-space:nowrap; }
 
@@ -171,15 +170,27 @@
     background: var(--line); border: 1px solid var(--line); margin-top: 30px;
   }
   .theme{
-    background: var(--bg); padding: 24px 22px;
+    background: var(--bg); padding: 28px 24px;
   }
   .theme .idx{ font-family: var(--mono); font-size: 11px; color: var(--pump); margin-bottom:10px; }
   .theme h3{ font-family: var(--serif); font-weight:600; font-size:17px; margin-bottom:8px; }
   .theme p{ font-size: 13.5px; color: var(--text-faint); }
 
+  /* ---------- current research interests ---------- */
+  .interest-grid{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); margin-top: 30px;
+  }
+  .interest{
+    background: var(--bg-card); padding: 26px 26px;
+  }
+  .interest .idx{ font-family: var(--mono); font-size: 11px; color: var(--probe); margin-bottom:10px; }
+  .interest h3{ font-family: var(--serif); font-weight:600; font-size:18px; margin-bottom:10px; }
+  .interest p{ font-size: 13.5px; color: var(--text-dim); }
+
   /* ---------- featured research ---------- */
   .feature{
-    background: var(--bg-card); border:1px solid var(--line); border-radius: var(--radius);
+    background: var(--bg-card); border:1px solid var(--line); border-radius: 8px;
     padding: 32px; margin-top: 30px;
     display:grid; grid-template-columns: 1fr 1px 240px; gap: 32px;
     box-shadow: 0 12px 32px -20px rgba(26,37,48,0.15);
@@ -198,15 +209,16 @@
     font-family: var(--mono); font-size: 12.5px; color: var(--probe);
     display:flex; align-items:center; gap:6px;
   }
-  .feature-links a:hover{ color:#5cf0a2; }
+  .feature-links a:hover{ color: var(--probe-dim); }
 
   /* ---------- publications ---------- */
-  .pub-list{ display:flex; flex-direction:column; margin-top: 24px; }
+  .pub-list{ display:flex; flex-direction:column; margin-top: 24px; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--bg-card); }
   .pub{
     display:grid; grid-template-columns: 64px 1fr; gap: 20px;
-    padding: 22px 0; border-top: 1px solid var(--line);
+    padding: 24px 26px; border-top: 1px solid var(--line);
   }
-  .pub:last-child{ border-bottom: 1px solid var(--line); }
+  .pub:first-child{ border-top:none; }
+  .pub:hover{ background:#fbfbf8; }
   .pub .year{ font-family: var(--mono); font-size: 13px; color: var(--text-faint); padding-top:3px; }
   .pub .year.pending{ color: var(--pump-dim); }
   .pub h4{ font-family: var(--sans); font-weight:600; font-size: 15.5px; margin-bottom:6px; line-height:1.4; }
@@ -214,7 +226,7 @@
   .pub .venue em{ font-style: normal; color: var(--text-faint); }
   .pub .links{ display:flex; gap:16px; }
   .pub .links a{ font-family: var(--mono); font-size:12px; color: var(--probe); }
-  .pub .links a:hover{ color:#5cf0a2; }
+  .pub .links a:hover{ color: var(--probe-dim); }
   .pub .status{ font-family: var(--mono); font-size:12px; color: var(--pump-dim); }
 
   /* ---------- two col lists (talks / awards / teaching) ---------- */
@@ -231,7 +243,7 @@
 
   /* ---------- writing ---------- */
   .writing-card{
-    margin-top: 30px; border:1px solid var(--line); border-radius: var(--radius);
+    margin-top: 30px; border:1px solid var(--line); border-radius: 8px;
     padding: 30px 32px; background: linear-gradient(135deg, rgba(184,80,47,0.06), transparent 60%);
     display:flex; justify-content:space-between; align-items:center; gap: 24px; flex-wrap:wrap;
   }
@@ -260,12 +272,13 @@
   .contact-row:last-child{ border-bottom: 1px solid var(--line); }
   .contact-row .k{ color: var(--text-faint); }
   .contact-row a{ color: var(--probe); }
-  .contact-row a:hover{ color:#5cf0a2; }
+  .contact-row a:hover{ color: var(--probe-dim); }
   .foot-note{ margin-top: 40px; font-family: var(--mono); font-size: 11px; color: var(--text-faint); }
 
   @media (max-width: 860px){
     .hero-grid{ grid-template-columns: 1fr; }
     .theme-grid{ grid-template-columns: 1fr; }
+    .interest-grid{ grid-template-columns: 1fr; }
     .feature{ grid-template-columns: 1fr; }
     .feature-div{ display:none; }
     .two-col{ grid-template-columns: 1fr; gap: 8px; }
@@ -273,6 +286,18 @@
     .nav-links{ display:none; }
     .wrap{ padding: 0 20px; }
   }
+
+  :focus-visible{
+    outline:2px solid var(--probe);
+    outline-offset:3px;
+  }
+  .btn, .pub, .feature, .writing-card{
+    transition:none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+  }
+
 </style>
 </head>
 <body>
@@ -282,6 +307,7 @@
     <div class="nav-mark">RK<span>_R / IPR·HBNI</span></div>
     <ul class="nav-links">
       <li><a href="#research">Research</a></li>
+      <li><a href="#current">Current Work</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#software">Software</a></li>
       <li><a href="#talks">Talks &amp; Awards</a></li>
@@ -307,32 +333,6 @@
         <a class="btn btn-ghost" href="https://scholar.google.com/citations?user=zZOtZ8AAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>
       </div>
     </div>
-
-    <div class="pulse-card">
-      <div class="pulse-card-head">
-        <span><span class="k1">● pump</span> 1064 nm, ~10 ns</span>
-        <span><span class="k2">● probe</span> 532 nm, CW</span>
-      </div>
-      <svg id="pulseSvg" viewBox="0 0 480 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- axes -->
-        <line x1="20" y1="200" x2="460" y2="200" stroke="#dcd8ce" stroke-width="1"/>
-        <line x1="20" y1="20" x2="20" y2="200" stroke="#dcd8ce" stroke-width="1"/>
-        <!-- pump pulse spike -->
-        <path class="pump-spike" d="M 60 200 L 66 200 L 70 34 L 74 200 L 460 200" stroke="#b8502f" stroke-width="2"/>
-        <circle class="pump-spike" cx="70" cy="34" r="3" fill="#b8502f"/>
-        <!-- probe transmission curve: T(t) = b(1 - e^-t/tau), rising then relaxing -->
-        <path class="probe-trace" d="M 70 176 C 100 176, 108 66, 150 62 C 220 56, 260 96, 320 118 C 370 134, 410 140, 452 142"
-              stroke="#16745a" stroke-width="2.25" stroke-dasharray="620" stroke-dashoffset="620"/>
-        <!-- labels -->
-        <text x="20" y="15" font-family="IBM Plex Mono" font-size="10" fill="#838a90">T(t), R(t)</text>
-        <text x="440" y="215" font-family="IBM Plex Mono" font-size="10" fill="#838a90" text-anchor="end">time (µs)</text>
-        <text x="76" y="30" font-family="IBM Plex Mono" font-size="9" fill="#b8502f">pump pulse</text>
-        <text x="330" y="108" font-family="IBM Plex Mono" font-size="9" fill="#16745a">probe: melt → plasma → redeposition</text>
-      </svg>
-      <div class="pulse-legend">
-        <span><span class="swatch" style="background:#ff6a45"></span>single ablating pulse</span>
-        <span><span class="swatch" style="background:#3ee08a"></span>CW probe reads full dynamics in one shot</span>
-      </div>
     </div>
   </div>
 </section>
@@ -375,6 +375,29 @@
         <div class="idx">DAQ</div>
         <h3>Instrument Automation</h3>
         <p>Automation of single-pulse control, sample positioning, synchronization, and data acquisition using Arduino and Python.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="current">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-title">Current Research Interests</div>
+      <div class="sec-tag">Where the experiment meets the model</div>
+    </div>
+    <p class="lede">Alongside the pump–probe measurements, I'm extending the picture computationally — connecting what the diagnostics observe to hydrodynamic and thermal models of the ablation process.</p>
+
+    <div class="interest-grid">
+      <div class="interest">
+        <div class="idx">FLASH · hydro</div>
+        <h3>Hydrodynamic Simulation of Laser-Produced Plasma</h3>
+        <p>Working with the FLASH radiation-hydrodynamics code to reproduce and extend recent double-front plasma modelling of nanosecond laser ablation, with the aim of capturing front- and rear-side ablation of thin metallic films on quartz substrates.</p>
+      </div>
+      <div class="interest">
+        <div class="idx">COMSOL · thermal</div>
+        <h3>Modelling Post-Ablation Melt Dynamics</h3>
+        <p>Building models of the melt film that persists after ablation — incorporating evaporative loss, disjoining pressure, and capillary flow — to connect surface morphology and redeposition back to what the pump–probe platform measures.</p>
       </div>
     </div>
   </div>
